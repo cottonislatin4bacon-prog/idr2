@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<title>the metaverse in your ears</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=DotGothic16&family=Plaster&family=Redacted+Script:wght@700&display=swap');
+
+body	{
+	margin: 0;
+	padding: 0;
+	background-color: whitesmoke;
+	transition: background-color 0.5s ease-out;
+	overflow-x: hidden;
+		}
+p {
+	font-family: 'DotGothic16', sans-serif;
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-size: 3vw;
+	font-weight: 400;
+	line-height: 0.9;
+	font-style: normal;
+	margin:0;
+	width:50.6vw;
+	color: whitesmoke;
+	mix-blend-mode: exclusion;
+	-webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+
+  -webkit-hyphenate-limit-before: 3; /* For Safari */
+  -webkit-hyphenate-limit-after: 4; /* For Safari */
+  -ms-hyphenate-limit-chars: 10 3 4;
+  hyphenate-limit-chars: 10 3 4;
+}
+
+#menu {
+	position: fixed;
+	top: 0;
+	right: -13em;
+	width: 13em;
+	height: 100%;
+	background: #080808;
+	box-shadow: 0px 0px 0px 1px rgba(255, 255, 255, 0.8);
+	z-index: 999;
+	transition: all 0.5s ease;
+	padding: 0px;
+	box-sizing: border-box;
+	overflow: auto;
+	display: flex;
+	flex-direction: column;
+	font-size:3vw;
+	color: whitesmoke;
+
+}
+p.menu {
+	font-family: 'DotGothic16', sans-serif;
+	position: relative;
+	mix-blend-mode: normal;
+	font-size: 3vw;
+	font-weight: 400;
+	line-height: 0.9;
+	font-style: normal;
+	margin:0;
+	color: whitesmoke;
+	width:100%;
+}
+p.menu2 {
+	font-family: 'DotGothic16', sans-serif;
+	position: relative;
+	mix-blend-mode: normal;
+	font-size: 3vw;
+	font-weight: 400;
+	line-height: 1;
+	font-style: normal;
+	margin:0;
+	color: whitesmoke;
+	width:100%;
+}
+
+.first-letter {
+	font-size: 4lh;
+	float: left;
+	margin-right: 2vw;
+	line-height: 0.3;
+	position: relative;
+	letter-spacing: -2vw;
+	top: -2.5vw;
+}
+
+.bold {
+	text-transform: uppercase;
+}
+.italic{
+	letter-spacing: 3px;
+	font-style: italic;
+}
+#menu.open {
+	right: 0;
+;
+}
+
+#menu-indicator {
+	position: fixed;
+	top: 5vw;
+	right: 0;
+	height: 100%;
+	width: auto;
+	z-index: 998;
+	transition: all 0.5s ease;
+	opacity: 1;
+	color: whitesmoke;
+	mix-blend-mode: exclusion;
+	font-size: 2vw;
+}
+	.blink {
+        animation: blink-animation 1s steps(5, start) infinite;
+        -webkit-animation: blink-animation 1s steps(5, start) infinite;
+      }
+      @keyframes blink-animation {
+        to {
+          visibility: hidden;
+        }
+      }
+      @-webkit-keyframes blink-animation {
+        to {
+          visibility: hidden;
+        }
+      }
+
+
+#menu-indicator:hover {
+	background: rgba(255, 255, 255, 0.8);
+	cursor: pointer;
+	opacity: 0;
+}
+.overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: auto;
+	z-index: 100;
+	mix-blend-mode:exclusion;
+	backdrop-filter: blur(0px); /* initially set the blur to 0 */
+	transition: backdrop-filter 0.5s ease-in-out;
+}
+.blurred {
+	filter: blur(2px); /* initially set the blur to 5px */
+	transition: filter 0.5s ease-in-out;
+}
+
+/* CSS for the unblurred content */
+.unblurred {
+	filter: none;
+	transition: filter 1.7s ease-out;}
+
+		/* hide the additional sentences by default */
+		.additional-sentence {
+			display: none;
+		}
+
+		#audio-player {
+			width: 300px;
+			margin-top: 1vw;
+			text-align: left;
+	}
+	audio {
+			width: 100%;
+	}
+	#timeline-container {
+			position: relative;
+			height: 4px;
+			width: 100%;
+			background-color: black;
+			border-radius: 0px;
+			margin-top: 1vw;
+    	margin-bottom: 1.5vw;
+    	margin-left: 13px;
+	}
+	#timeline-indicator {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 0;
+			background-color: white;
+			border-radius: 0px;
+	}
+	#timeline-button {
+			position: absolute;
+			top: 0px;
+			left: 0;
+			width: 100%;
+			height: 4px;
+			background-color: whitesmoke;
+			mix-blend-mode: exclusion;
+			border: none;
+			cursor: pointer;
+	}
+	#play-pause {
+			font-size: 2.5vw;
+			color:whitesmoke;
+			background: none;
+			border: none;
+			cursor: pointer;
+	}
+		/* Small devices (portrait tablets and large phones, 768px and up) */
+@media only screen and (orientation: portrait) {
+
+body {
+		background-color: #080808;
+	}
+p {
+	  font-size: 9vw;
+	  width: auto;
+	  padding-right: 9vw;
+		color:whitesmoke;
+		mix-blend-mode:normal;
+			;
+	}
+}
+	</style>
+	<script>
+
+			// helper function to display the additional sentences letter by letter
+			function typeWriterEffect(element, text, delay) {
+				let i = 0;
+				element.innerHTML = ""
+				const timer = setInterval(function() {
+					element.innerHTML += text.charAt(i);
+					i++;
+					if (i > text.length - 1) {
+						clearInterval(timer);
+					}
+				}, delay);
+			}
+
+			  const additionalSentences = [
+					"this message has no content.",
+					"deleting history.",
+					"how to quickly and easily clear mucus from lungs &."
+			  ];
+
+			  // function to check if the user has scrolled to a certain distance
+			  function checkScrollDistance() {
+			    const distanceFromTop = window.pageYOffset || document.documentElement.scrollTop;
+			    if (distanceFromTop > 600) { // change 500 to the distance you want to trigger the insertion
+			      insertAdditionalSentences();
+			      window.removeEventListener("scroll", checkScrollDistance); // remove the event listener to prevent multiple insertions
+			    }
+			  }
+
+			  // insert the additional sentences
+			  function insertAdditionalSentences() {
+			    const paragraph = document.querySelector('p');
+			    const sentences = paragraph.innerHTML.split('. '); // split the paragraph into sentences
+			    const randomIndex1 = Math.floor(Math.random() * sentences.length); // generate 3 random indices
+			    const randomIndex2 = Math.floor(Math.random() * sentences.length);
+			    const randomIndex3 = Math.floor(Math.random() * sentences.length);
+			    sentences.splice(randomIndex1 + 1, 0, `<span class="additional-sentence">${additionalSentences[0]}.</span>`); // insert the additional sentences
+			    sentences.splice(randomIndex2 + 1, 0, `<span class="additional-sentence">${additionalSentences[1]}.</span>`);
+			    sentences.splice(randomIndex3 + 1, 0, `<span class="additional-sentence">${additionalSentences[2]}.</span>`);
+			    paragraph.innerHTML = sentences.join('. '); // join the sentences back into a paragraph
+			    const additionalSentenceElements = document.querySelectorAll('.additional-sentence');
+			    const delay = 100;
+			    additionalSentenceElements.forEach(function(element) {
+			      typeWriterEffect(element, element.innerHTML, delay);
+			    });
+			    additionalSentenceElements.forEach(function(element) {
+			      element.style.display = 'inline-block';
+						element.style.fontStyle = 'italic';
+			    });
+			  }
+
+			  // add the event listener for the scroll event
+			  window.addEventListener("scroll", checkScrollDistance);
+		</script>
+</head>
+<body onmousemove="changeBackground(event)">
+	<script>
+			function changeBackground(event) {
+				try {
+					// Get the position of the mouse cursor
+					let x = event.clientX;
+					let y = event.clientY;
+
+					// Calculate the background color based on the position of the mouse
+					let halfWidth = window.innerWidth / 2.1;
+					let color = (x < halfWidth) ? "whitesmoke" : "#080808";
+
+					// Set the background color of the body
+					document.body.style.backgroundColor = color;
+				} catch (error) {
+					console.error(error);
+				}
+			}
+		</script>
+	<div class="overlay">
+<p>
+i saw this tiny old lady at the mall wearing a heathered grey sweatsuit with
+‘new york’ embroidered in pink on the hood. if she and I were the only people
+at the mall, I probably would’ve snapped a sneaky picture, but as it was busy
+I wished in my head that I had some hidden camera function in my eyes.
+<br>&emsp;———— a contact lens that I could just put in or a digital censor
+inside the actual eyeball, updating the camera obscura we’re born with to a
+mirrorless dslr. I hope it comes with vsco filters.like that’s some cyborg
+shit. <br>&emsp;———— stealthier than those zooming glasses in the spy kids 2 movie that were a meme at some point. I would
+maybe have to touch my temple, blink, or just think about taking a photo.
+<br>&emsp;———— but then I immeadiately unwished that because it’s scary when
+technology is hidden and smooth and in this case, turning anyone into a
+walking spy camera. even more so than we are now with our smartphones. what
+kind of imagery and surveillance would this cyborg eye help create?
+<br>&emsp;———— not to focus solely on the possible evils of technological
+advance, but we might end up not giving a second thought about the dangers of
+increasingly invasive technology and just go on with our daily lives because
+everything is so seamless and smooth. wouldn’t you as a user/consumer/person
+want that? <br>&emsp;———— to feel one. no funny stuff, just an oven that you
+can set to pre-heat through a mobile app while you’re on your way home with
+the frozen store-bought pizza. we might hold the forbidden fruit in our hand,
+so close to us, without any idea of what’s going on under the gorilla glass.
+it’s always for some greater good, too, like the betterment of society, but history
+is often a lot more sinister. <br>&emsp;———— it’s time to break the spell.
+what happens when you gut-punch the magician?	</p>
+</div>
+<img src="images/gptm13.png" style="mix-blend-mode:darken; height:auto;position:fixed;top:3vw;right:5vw;">
+<div id="menu-indicator" class="blink">&#9204;</div>
+<div id="menu">
+	<p class="menu">Idle Talk Radio</p>
+	<p class="menu">Episode 2</p>
+	<p class="menu" style="margin-top:2vw;display: inline-flex;align-items: flex-start;flex-wrap: nowrap;flex-direction: row;">gptm <span style="font-size:1vw;font-family: monospace;font-style: italic;padding-top: 1.2em;padding-left: 1.2em;">[ʤi pi ti ɛm]</span></p>
+	<p class="menu">
+		<div id="audio-player">
+			<audio id="audio" src="https://64.media.tumblr.com/13aae0240af27fcc6da2558c84046ac2/4319af820b698935-41/5cecd6aa649c5d27e3e50e41e97cea88602a677f.mp3" preload="auto"></audio>
+			<button id="play-pause">&#11208;</button> <!-- Play symbol -->
+				<div id="timeline-container">
+					<div id="timeline-indicator"></div>
+					<button id="timeline-button"></button>
+	</div>
+</div>
+		<script>
+		// audio player
+		    const audio = document.getElementById('audio');
+		    const playPauseButton = document.getElementById('play-pause');
+		    const timelineIndicator = document.getElementById('timeline-indicator');
+		    const timelineButton = document.getElementById('timeline-button');
+
+		    playPauseButton.addEventListener('click', () => {
+		        if (audio.paused) {
+		            audio.play();
+		            playPauseButton.innerHTML = '&#x23f8;'; // Pause symbol
+		        } else {
+		            audio.pause();
+		            playPauseButton.innerHTML = '&#9205;'; // Play symbol
+		        }
+		    });
+
+		    audio.addEventListener('timeupdate', () => {
+		        const duration = audio.duration;
+		        const currentTime = audio.currentTime;
+		        const progress = (currentTime / duration) * 100;
+		        timelineIndicator.style.width = `${progress}%`;
+		    });
+
+		    timelineButton.addEventListener('click', (event) => {
+		        const timelineContainerRect = event.currentTarget.parentElement.getBoundingClientRect();
+		        const clickX = event.clientX - timelineContainerRect.left;
+		        const timelineWidth = timelineContainerRect.width;
+		        const newTimePercentage = (clickX / timelineWidth) * 100;
+		        audio.currentTime = (audio.duration * newTimePercentage) / 100;
+		    });
+
+				audio.addEventListener('ended', () => {
+			 playPauseButton.innerHTML = '&#9205;'; // Change to Play symbol when audio ends
+	 });
+		</script>
+	</p>
+<p class="menu2" style="font-size: 1.5vw;margin-top:5vw"><span class="first-letter">,,</span><span class="bold">Priva<span style="font-size:1.6vw">t</span>e</span> is still a complex word but its extraordinary historical revaluation
+is for the most part long completed. It came into English from fw <span class="italic">privatus</span>,
+L - withdrawn from public life, from rw <span class="italic">privare</span>, L - to bereave or deprive
+(English <span class="italic">deprive</span> has kept the strongest early sense). It was applied to
+withdrawn religious orders, where the action was voluntary (CI4) and from
+C15 to persons not holding public or official position or rank, as still in
+<span class="bold">priva<span style="font-size:1.6vw">t</span>e soldier</span> and <span class="bold">priva<span style="font-size:1.6vw">t</span>e member</span> (in Parliament). It acquired the sense
+of secret and concealed both in politics and in the sexual sense of <span class="bold">priva<span style="font-size:1.6vw">t</span>e
+par<span style="font-size:1.6vw">t</span>s</span>. It acquired also (and this was one of the crucial moments of transition)
+a conventional opposition to <span class="italic">public</span>, as in <span class="bold">priva<span style="font-size:1.6vw">t</span>e house</span>, <span class="bold">priva<span style="font-size:1.6vw">t</span>e
+educa<span style="font-size:1.6vw">t</span>ion</span>, <span class="bold">priva<span style="font-size:1.6vw">t</span>e <span style="font-size:1.6vw">t</span>hea<span style="font-size:1.6vw">t</span>re</span>, <span class="bold">priva<span style="font-size:1.6vw">t</span>e view</span>,
+<span class="bold">priva<span style="font-size:1.6vw">t</span>e ho<span style="font-size:1.6vw">t</span>el</span>, <span class="bold">priva<span style="font-size:1.6vw">t</span>e club</span>,
+<span class="bold">priva<span style="font-size:1.6vw">t</span>e proper<span style="font-size:1.6vw">t</span>y</span>. In virtually all these uses the primary sense was one
+of <span class="italic">privilege</span>; the limited access or participation was seen not as deprivation
+but as advantage (cf. <span class="italic">exclusive</span>). This favourable sense developed mainly
+from C16 and was still being rapidly extended in C19, even while <span class="italic">privation</span>
+retained its old sense of being deprived and <span class="italic">privateer</span> its sense (from the
+original <span class="bold">priva<span style="font-size:1.6vw">t</span>e man of war</span>) of seizing the property of others. <span class="italic">Privilege</span>
+meanwhile went with <span class="bold">priva<span style="font-size:1.6vw">t</span>e</span>; originally, in <span class="italic">privilegium</span>, L - a law or ruling
+in favour of or against an individual, it became a special advantage or
+benefit.<span><br></span>
+&emsp;&emsp; But this general movement in <span class="bold">priva<span style="font-size:1.6vw">t</span>e</span> (the association with <span class="bold">privilege</span>)
+has to be set alongside an even more important movement, in which
+‘withdrawal’ and ‘seclusion’ came to be replaced, as senses, by
+‘independence’ and ‘intimacy’. It is very difficult to date this. There is a
+positive use in Ridle, (1549): ‘the privits of my hart and consciance’.
+There was a common sense of privileged intimacy with some powerful or
+important person, and this allowed overlap with a developed uncalculating
+sense, as in <span class="bold">priva<span style="font-size:1.6vw">t</span>e friends</span>. In C17 and especially C18, seclusion in the
+sense of a quiet life was valued as <span class="bold">privacy</span>, and this developed beyond the
+sense of solitude to the senses of decent and dignified withdrawal and of
+the <span class="bold">privacy of my family and friends</span>, and beyond these to the
+generalized values of <span class="bold">priva<span style="font-size:1.6vw">t</span>e life</span>. This development was deeply connected with corresponding changes
+in the senses of INDIVIDUAL and FAMILY (qq.v.).<span><br></span>
+&emsp;&emsp; <span class="bold">Priva<span style="font-size:1.6vw">t</span>e life</span> still has its old sense, in special distinction from <span class="italic">public life</span>
+(‘what he is in private life’) but it is the steady association of private with
+<span class="italic">personal</span>, as strongly favourable terms, that now seems predominant. In
+certain contexts the word can still be unfavourable - <span class="bold">priva<span style="font-size:1.6vw">t</span>e profi<span style="font-size:1.6vw">t</span></span>,
+<span class="bold">priva<span style="font-size:1.6vw">t</span>e advan<span style="font-size:1.6vw">t</span>age</span> - but the association with personal independence is
+strong enough to permit the extraordinary description of large joint-stock
+corporations as <span class="bold">priva<span style="font-size:1.6vw">t</span>e en<span style="font-size:1.6vw">t</span>erprise</span> (where the chosen distinction is not
+from public but from <span class="italic">State</span>). <span class="bold">Priva<span style="font-size:1.6vw">t</span>e</span>, that is, in its positive senses, is a
+record of the legitimation of a bourgeois view of life: the ultimate
+generalized privilege, however abstract in practice, of seclusion and
+protection from others (<span class="italic">the public</span>); of lack of accountability to ‘them’; and
+of related gains in closeness and comfort of these general kinds. As such,
+and especially in the senses of the rights of the <span class="italic">individual</span> (to his <span class="bold">priva<span style="font-size:1.6vw">t</span>e life</span>
+or, from a quite different tradition, to his <span class="italic">civil liberties</span>) and of the valued
+intimacy of <span class="italic">family</span> and friends, it has been widely adopted outside the strict
+bourgeois viewpoint. This is the real reason for its current complexity.</p>
+<p class="menu" style="margin-top:3vw">&emsp;———— Williams, Raymond.<span><br></span><span><br></span>
+&emsp;&emsp;&emsp; Keywords: A vocabulary of culture and society. &emsp; New York: Oxford University Press, 1985.</p>
+</div>
+	<script>
+	const menu = document.querySelector('#menu');
+	const menuIndicator = document.querySelector('#menu-indicator');
+		const overlay = document.querySelector('.overlay');
+
+
+	function openMenu() {
+		menu.classList.add('open');
+		overlay.classList.add('blurred'); // add the blurred class to the overlay
+	}
+
+	function closeMenu() {
+		menu.classList.remove('open');
+		overlay.classList.remove('blurred');
+	}
+
+	function handleMouseOver(e) {
+		if (e.clientX > window.innerWidth - 100) {
+			openMenu();
+		}
+	}
+
+	function handleMouseOut(e) {
+		if (e.clientX < window.innerWidth * 0.6 ) {
+			closeMenu();
+		}
+	}
+
+	menuIndicator.addEventListener('click', openMenu);
+	document.addEventListener('mouseover', handleMouseOver);
+	document.addEventListener('mouseout', handleMouseOut);
+	</script>
+</body>
+</html>
